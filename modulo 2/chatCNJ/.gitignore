@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+
+# Virtual environment
+venv/
+.env
+
+# VS Code settings
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# FastAPI specific (optional)
+*.db
+
+# Application specific
+app/db/temp/
+
+chroma_db/

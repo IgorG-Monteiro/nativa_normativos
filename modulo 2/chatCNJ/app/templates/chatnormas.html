@@ -1,0 +1,79 @@
+{% block styles %}
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<link rel="stylesheet" href="{{ url_for('static', path='chatnormas.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Navbar lateral esquerda -->
+    <nav class="navbar">
+        <div class="header-logo">
+            <h2 class="palanq">Chat</h2><h2 class="ia">CNJ</h2>
+        </div>
+
+        <div class="divisor"></div>
+
+        <div class="new-chat">
+            <button id="new-chat-button" class="addbtn" aria-label="Novo Chat">
+                <i class="uil uil-plus-circle"></i> Novo Chat
+            </button>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                <i class="uil uil-lightbulb-alt"></i> Exemplos de Perguntas
+            </button>
+            <div id="example-prompts" class="dropdown-content">
+                <!-- Usando data-prompt para um JS mais limpo -->
+                <a href="#" data-prompt="Adoção infantil.">Adoção infantil.</a>
+                <a href="#" data-prompt="Produtividade jurisdicional">Produtividade jurisdicional.</a>
+                <a href="#" data-prompt="Prêmio de Qualidade CNJ.">Prêmio de Qualidade CNJ.</a>
+            </div>
+        </div>
+
+        <div class="infos">
+            <hr>
+            <p>
+                Converse com um agente de IA treinado em atos normativos do CNJ.
+                Atualmente, o catálogo possui mais de 5800 atos normativos.
+            </p>
+        </div>
+    </nav>
+
+    <!-- Área do chat principal -->
+    <main class="chat-section">
+        <!-- O container principal de mensagens com acessibilidade -->
+        <div id="chat-container" class="chat-box" aria-live="polite">
+            <!-- Mensagem de boas-vindas renderizada no servidor -->
+            <div class="message bot-message">
+                <div class="avatar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 0 0-3.95-7.95l-1.05-1.05A10 10 0 0 1 12 2Z"></path><path d="M12 22a10 10 0 0 1 3.95-7.95l1.05-1.05A10 10 0 0 0 12 2Z"></path><path d="m9 14 3-3 3 3"></path><path d="M9 14v1"></path><path d="M15 14v1"></path><path d="M12 11v6"></path></svg>
+                </div>
+                <div class="message-content">
+                    <p>Olá! Sou seu assistente virtual especializado em propostas de governo. Como posso ajudar você hoje?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indicador de Digitação (fora do scroll) -->
+        <div id="typing-indicator" class="typing-indicator-container">
+             <!-- O indicador será movido para cá via JS -->
+        </div>
+
+        <!-- Área de Input -->
+        <div class="chat-input-area">
+            <div class="chat-input-wrapper">
+                <input type="text" id="message-input" placeholder="Pergunte sobre normas e regulamentos..." autocomplete="off">
+                <button id="send-button" aria-label="Enviar mensagem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="{{ url_for('static', path='chatnormas.js') }}"></script>
+{% endblock %}

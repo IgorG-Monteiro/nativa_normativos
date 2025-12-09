@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  fastapi_app:
+    build: .
+    container_name: chatnormas
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
+    networks:
+      - nativa-net
+
+networks:
+  nativa-net:
+    external: true
