@@ -11,11 +11,18 @@
     --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+/* Tema TJAP */
+body.theme-tjap {
+    --primary-color: #00994c;
+    --accent-color: #2fcc7e;
+}
+
 body {
     margin: 0;
     font-family: var(--font-family);
     background-color: var(--background-light);
     color: var(--text-dark);
+    transition: all 0.3s ease;
 }
 
 .container {
@@ -33,6 +40,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    transition: background-color 0.3s ease;
 }
 
 .header-logo {
@@ -63,13 +71,12 @@ body {
 .navbar button i { font-size: 1.2rem; }
 
 .dropdown-content {
-    display: none; /* Oculta o dropdown por padrão */
+    display: none;
     background-color: #2d3748;
     border-radius: var(--border-radius);
     overflow: hidden;
 }
 
-/* Nova classe para exibir o dropdown via JS */
 .dropdown-content.show {
     display: block;
 }
@@ -89,6 +96,72 @@ body {
     font-size: 0.85rem;
     opacity: 0.8;
     line-height: 1.5;
+}
+
+/* --- Toggle Switch --- */
+.db-switch-container {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+}
+
+.switch-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.switch-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    min-width: 35px;
+    text-align: center;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
 }
 
 /* --- Chat Section --- */

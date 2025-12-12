@@ -7,41 +7,96 @@ document.addEventListener('DOMContentLoaded', () => {
             messageInput: document.getElementById('message-input'),
             sendButton: document.getElementById('send-button'),
             newChatButton: document.getElementById('new-chat-button'),
-            // CORREÇÃO: O ID no HTML é 'typing-indicator', não 'typing-indicator-container'
             typingIndicatorContainer: document.getElementById('typing-indicator'),
             examplePrompts: document.getElementById('example-prompts'),
             dropdownButton: document.querySelector('.dropbtn'),
+            dbSwitch: document.getElementById('db-switch'),
+            headerTitle: document.getElementById('header-title'),
+            infoText: document.getElementById('info-text'),
         },
 
         // Estado do Chat
         state: {
             sessionId: null,
             isLoading: false,
+            currentDb: 'cnj', // Valor padrão
         },
 
-        // Endereço da API (conforme seu routes.py)
+        // Endereço da API
         API_URL: '/chatnormas/legislacao',
+
+        // Configurações de tema
+        themes: {
+            cnj: {
+                title: 'CNJ',
+                infoText: 'Converse com um agente de IA treinado em atos normativos do CNJ. Atualmente, o catálogo possui mais de 5800 atos normativos do CNJ.',
+                welcomeMessage: 'Olá! Sou seu assistente virtual especializado em atos normativos do CNJ. Como posso ajudar você hoje?',
+            },
+            tjap: {
+                title: 'TJAP',
+                infoText: 'Converse com um agente de IA treinado exclusivamente em atos normativos internos do Tribunal de Justiça do Amapá (TJAP). Atualmente, o catálogo possui mais de 2500 atos internos.',
+                welcomeMessage: 'Olá! Sou seu assistente virtual especializado em atos normativos do TJAP. Como posso ajudar você hoje?',
+            }
+        },
 
         /**
          * Inicializa o módulo do chat
          */
         init() {
             console.log("=== Chat ChatNormas - INÍCIO ===");
+            
             // Garante que todos os elementos essenciais foram encontrados
-            if (!this.elements.chatContainer || !this.elements.messageInput || !this.elements.sendButton || !this.elements.typingIndicatorContainer) {
-                console.error("ERRO CRÍTICO: Um ou mais elementos essenciais do chat não foram encontrados no HTML. Verifique os IDs.");
+            if (!this.elements.chatContainer || !this.elements.messageInput || 
+                !this.elements.sendButton || !this.elements.typingIndicatorContainer) {
+                console.error("ERRO CRÍTICO: Um ou mais elementos essenciais do chat não foram encontrados no HTML.");
                 return;
             }
+            
+            // Carrega preferência salva do banco de dados
+            const savedDb = localStorage.getItem('chatDb');
+            if (savedDb === 'tjap') {
+                this.state.currentDb = 'tjap';
+                this.elements.dbSwitch.checked = true;
+                this.applyTheme('tjap');
+            } else {
+                this.state.currentDb = 'cnj';
+                this.applyTheme('cnj');
+            }
+            
             this.state.sessionId = this.getSessionId();
             this.bindEvents();
             this.loadChatHistory();
+            
             // Adiciona mensagem de boas-vindas se o histórico estiver vazio
-            if (this.elements.chatContainer.children.length <= 1) { // Apenas a mensagem inicial do HTML
-                 this.elements.chatContainer.innerHTML = ''; // Limpa para não duplicar
-                 this.addMessage("Olá! Sou seu assistente virtual especializado em propostas de governo. Como posso ajudar você hoje?", 'bot');
+            if (this.elements.chatContainer.children.length <= 1) {
+                this.elements.chatContainer.innerHTML = '';
+                const welcomeMsg = this.themes[this.state.currentDb].welcomeMessage;
+                this.addMessage(welcomeMsg, 'bot');
             }
+            
             this.scrollToBottom();
             console.log("Session ID:", this.state.sessionId);
+            console.log("Database:", this.state.currentDb);
+        },
+
+        /**
+         * Aplica o tema visual baseado no banco de dados selecionado
+         */
+        applyTheme(db) {
+            const theme = this.themes[db];
+            
+            // Atualiza classes do body
+            if (db === 'tjap') {
+                document.body.classList.add('theme-tjap');
+            } else {
+                document.body.classList.remove('theme-tjap');
+            }
+            
+            // Atualiza título
+            this.elements.headerTitle.textContent = theme.title;
+            
+            // Atualiza texto informativo
+            this.elements.infoText.textContent = theme.infoText;
         },
 
         /**
@@ -49,13 +104,28 @@ document.addEventListener('DOMContentLoaded', () => {
          */
         bindEvents() {
             this.elements.sendButton.addEventListener('click', () => this.sendMessage());
+            
             this.elements.messageInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     this.sendMessage();
                 }
             });
+            
             this.elements.newChatButton.addEventListener('click', () => this.resetChat());
+            
+            // Evento do switch
+            this.elements.dbSwitch.addEventListener('change', (e) => {
+                const newDb = e.target.checked ? 'tjap' : 'cnj';
+                this.state.currentDb = newDb;
+                localStorage.setItem('chatDb', newDb);
+                this.applyTheme(newDb);
+                
+                // Reinicia o chat ao trocar de banco
+                this.resetChat(false); // false = não gera novo sessionId
+                
+                console.log("Banco de dados alterado para:", newDb);
+            });
             
             this.elements.dropdownButton.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -82,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /**
          * Obtém ou cria um ID de sessão único
-         * @param {boolean} forceNew - Força a criação de um novo ID de sessão
          */
         getSessionId(forceNew = false) {
             let sessionId = localStorage.getItem('chatSessionId');
@@ -110,22 +179,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch(this.API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: userInput, sessionId: this.state.sessionId })
+                    body: JSON.stringify({ 
+                        message: userInput, 
+                        sessionId: this.state.sessionId,
+                        db: this.state.currentDb // Envia o banco selecionado
+                    })
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({ detail: 'Resposta de erro inválida do servidor.' }));
+                    const errorData = await response.json().catch(() => ({ 
+                        detail: 'Resposta de erro inválida do servidor.' 
+                    }));
                     throw new Error(errorData.detail || `Erro na API: ${response.status}`);
                 }
 
                 const data = await response.json();
-                // A sua API retorna um objeto com a chave "output" dentro
                 const botReply = data.output || "Não recebi uma resposta válida do servidor.";
                 this.addMessage(botReply, 'bot');
 
             } catch (error) {
                 console.error("ERRO em sendMessage:", error);
-                this.addMessage(`Desculpe, ocorreu um erro de comunicação com a IA. (${error.message})`, 'bot', true);
+                this.addMessage(
+                    `Desculpe, ocorreu um erro de comunicação com a IA. (${error.message})`, 
+                    'bot', 
+                    true
+                );
             } finally {
                 this.state.isLoading = false;
                 this.hideTypingIndicator();
@@ -166,12 +244,18 @@ document.addEventListener('DOMContentLoaded', () => {
         /**
          * Reinicia o chat para um novo estado
          */
-        resetChat() {
+        resetChat(generateNewSession = true) {
             console.log("A reiniciar o chat.");
-            localStorage.removeItem(`chatHistory_${this.state.sessionId}`);
-            this.state.sessionId = this.getSessionId(true); // Força nova sessão
+            localStorage.removeItem(`chatHistory_${this.state.sessionId}_${this.state.currentDb}`);
+            
+            if (generateNewSession) {
+                this.state.sessionId = this.getSessionId(true);
+            }
+            
             this.elements.chatContainer.innerHTML = '';
-            this.addMessage("Olá! Sou seu assistente virtual especializado em propostas de governo. Como posso ajudar você hoje?", 'bot');
+            const welcomeMsg = this.themes[this.state.currentDb].welcomeMessage;
+            this.addMessage(welcomeMsg, 'bot');
+            
             console.log("Nova Session ID:", this.state.sessionId);
         },
         
@@ -188,7 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         scrollToBottom() {
-            // Adicionado um pequeno delay para garantir que o DOM foi atualizado
             setTimeout(() => {
                 this.elements.chatContainer.scrollTop = this.elements.chatContainer.scrollHeight;
             }, 50);
@@ -197,20 +280,24 @@ document.addEventListener('DOMContentLoaded', () => {
         saveChatHistory() {
             const history = Array.from(this.elements.chatContainer.children).map(msg => ({
                 role: msg.classList.contains('user-message') ? 'user' : 'bot',
-                content: msg.querySelector('.message-content p').innerHTML
+                content: msg.querySelector('.message-content').innerHTML
             }));
-            localStorage.setItem(`chatHistory_${this.state.sessionId}`, JSON.stringify(history));
+            const storageKey = `chatHistory_${this.state.sessionId}_${this.state.currentDb}`;
+            localStorage.setItem(storageKey, JSON.stringify(history));
         },
 
         loadChatHistory() {
-            const savedHistory = localStorage.getItem(`chatHistory_${this.state.sessionId}`);
+            const storageKey = `chatHistory_${this.state.sessionId}_${this.state.currentDb}`;
+            const savedHistory = localStorage.getItem(storageKey);
+            
             if (savedHistory) {
                 this.elements.chatContainer.innerHTML = ''; 
                 const history = JSON.parse(savedHistory);
-                if (history.length === 0) return; // Não carrega nada se o histórico salvo estiver vazio
+                if (history.length === 0) return;
+                
                 history.forEach(msg => {
                     const messageElement = this.createMessageElement('', msg.role);
-                    messageElement.querySelector('.message-content p').innerHTML = msg.content;
+                    messageElement.querySelector('.message-content').innerHTML = msg.content;
                     this.elements.chatContainer.appendChild(messageElement);
                 });
             }
@@ -218,13 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         parseMarkdown(text) {
             if (typeof text !== 'string') return '';
-
-            // A mágica acontece aqui!
-            // A biblioteca 'marked' converte TUDO (títulos, listas, negrito, etc.) para HTML.
-            // O 'gfm: true' habilita a compatibilidade com o markdown do GitHub (mais comum).
             return marked.parse(text, { gfm: true, breaks: true });
         }
-     };
+    };
 
     ChatNormativo.init();
 });

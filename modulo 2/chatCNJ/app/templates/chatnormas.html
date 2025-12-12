@@ -2,23 +2,34 @@
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 <link rel="stylesheet" href="{{ url_for('static', path='chatnormas.css') }}">
 {% endblock %}
-
 {% block content %}
 <div class="container">
     <!-- Navbar lateral esquerda -->
     <nav class="navbar">
         <div class="header-logo">
-            <h2 class="palanq">Chat</h2><h2 class="ia">CNJ</h2>
+            <h2 class="palanq">Chat</h2><h2 class="ia" id="header-title">CNJ</h2>
         </div>
-
         <div class="divisor"></div>
-
+        
+        <!-- Switch para alternar entre CNJ e TJAP -->
+        <div class="db-switch-container">
+            <label class="switch-label">
+                <span class="switch-text">CNJ</span>
+                <label class="switch">
+                    <input type="checkbox" id="db-switch">
+                    <span class="slider"></span>
+                </label>
+                <span class="switch-text">TJAP</span>
+            </label>
+        </div>
+        
+        <div class="divisor"></div>
+        
         <div class="new-chat">
             <button id="new-chat-button" class="addbtn" aria-label="Novo Chat">
                 <i class="uil uil-plus-circle"></i> Novo Chat
             </button>
         </div>
-
         <div class="dropdown">
             <button class="dropbtn">
                 <i class="uil uil-lightbulb-alt"></i> Exemplos de Perguntas
@@ -30,16 +41,14 @@
                 <a href="#" data-prompt="Prêmio de Qualidade CNJ.">Prêmio de Qualidade CNJ.</a>
             </div>
         </div>
-
         <div class="infos">
             <hr>
-            <p>
-                Converse com um agente de IA treinado em atos normativos do CNJ.
-                Atualmente, o catálogo possui mais de 5800 atos normativos.
+            <p id="info-text">
+                Converse com um agente de IA treinado em atos normativos das bases internas do TJAP e também do CNJ.
+                Atualmente, o catálogo possui mais de 2500 atos internos do TJAP e mais de 5800 atos normativos do CNJ.
             </p>
         </div>
     </nav>
-
     <!-- Área do chat principal -->
     <main class="chat-section">
         <!-- O container principal de mensagens com acessibilidade -->
@@ -54,12 +63,10 @@
                 </div>
             </div>
         </div>
-
         <!-- Indicador de Digitação (fora do scroll) -->
         <div id="typing-indicator" class="typing-indicator-container">
              <!-- O indicador será movido para cá via JS -->
         </div>
-
         <!-- Área de Input -->
         <div class="chat-input-area">
             <div class="chat-input-wrapper">
@@ -72,7 +79,6 @@
     </main>
 </div>
 {% endblock %}
-
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="{{ url_for('static', path='chatnormas.js') }}"></script>

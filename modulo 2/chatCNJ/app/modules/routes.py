@@ -11,14 +11,14 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 # DEV
-N8N_WEBHOOK_URL = "http://N8N:5678/webhook/66606d14-c81d-4523-ac00-8238854e560c"
-
+N8N_WEBHOOK_URL = "http://n8n_server:5678/webhook/66606d14-c81d-4523-ac00-8238854e560c"
 # PROD
 # N8N_WEBHOOK_URL = "http://157.173.125.173:5678/webhook/1498ff44-3cc2-4ef9-bfab-ea8416eeb00b"
 
 class ChatRequest(BaseModel):
     message: str
     sessionId: str
+    db: str  # Adicionado campo db (aceita "cnj" ou "tjap")
 
 async def log_request(request):
     logger.info("================= REQUISIÇÃO SAINDO DO FASTAPI PARA O N8N =================")
@@ -36,19 +36,29 @@ async def log_request(request):
 @router.post("/legislacao")
 async def chat_response(request_data: ChatRequest):
     logger.info(f"Recebida mensagem da sessão: {request_data.sessionId}")
+    logger.info(f"Banco de dados selecionado: {request_data.db}")
     
+    # Validação do campo db
+    if request_data.db not in ["cnj", "tjap"]:
+        logger.warning(f"Banco de dados inválido recebido: {request_data.db}. Usando 'cnj' como padrão.")
+        db_value = "cnj"
+    else:
+        db_value = request_data.db
+    
+    # Payload enviado para o N8N agora inclui o campo db
     n8n_payload = {
         "texto": request_data.message,
-        "sessionId": request_data.sessionId
+        "sessionId": request_data.sessionId,
+        "db": db_value  # Envia o banco selecionado para o N8N
     }
-
+    
     headers = {
         "Content-Type": "application/json",
         "User-Agent": "insomnia/11.5.0",
     }
-
+    
     payload_bytes = json.dumps(n8n_payload).encode('utf-8')
-
+    
     try:
         async with httpx.AsyncClient(timeout=None, event_hooks={'request': [log_request]}) as client:
             
@@ -71,7 +81,7 @@ async def chat_response(request_data: ChatRequest):
                 return n8n_response[0]
             
             return n8n_response
-
+            
     except httpx.RequestError as e:
         logger.error(f"ERRO DE CONEXÃO com o N8N em {N8N_WEBHOOK_URL}: {e}")
         raise HTTPException(
