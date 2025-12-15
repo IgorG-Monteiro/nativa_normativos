@@ -1,0 +1,138 @@
+2025-12-11 12:04:12,797 - INFO - Carregando modelo BAAI/bge-m3 em cpu...
+2025-12-11 12:04:16,775 - INFO - Modelo carregado com sucesso
+2025-12-11 12:04:16,776 - INFO - ================================================================================
+2025-12-11 12:04:16,776 - INFO - INICIANDO PIPELINE DE PROCESSAMENTO
+2025-12-11 12:04:16,776 - INFO - ================================================================================
+2025-12-11 12:04:16,979 - INFO - Tabela destino inicializada
+2025-12-11 12:04:16,979 - INFO - Conectando ao banco fonte...
+2025-12-11 12:04:16,983 - INFO - Executando consulta...
+2025-12-11 12:04:20,303 - INFO - Total de documentos recuperados: 2555
+2025-12-11 12:04:20,308 - INFO - Documentos já processados (pulados): 0
+2025-12-11 12:04:20,309 - INFO - Documentos a processar: 2555
+2025-12-11 12:04:20,310 - INFO - 
+================================================================================
+2025-12-11 12:04:20,310 - INFO - MEGA-BATCH 1: 2000 documentos
+2025-12-11 12:04:20,310 - INFO - ================================================================================
+
+2025-12-11 12:04:20,310 - INFO - Processando 2000 documentos...
+2025-12-11 12:04:21,435 - WARNING - Documento 902 muito curto após limpeza
+2025-12-11 12:04:23,039 - WARNING - Documento 2971 muito curto após limpeza
+2025-12-11 12:04:23,066 - WARNING - Documento 2986 muito curto após limpeza
+2025-12-11 12:04:23,571 - WARNING - Documento 3539 muito curto após limpeza
+2025-12-11 12:04:27,174 - INFO - Total de chunks gerados: 3139
+2025-12-11 12:04:27,174 - INFO - Gerando embeddings...
+2025-12-11 12:50:21,093 - INFO - Inserindo no banco de dados...
+2025-12-11 12:50:28,385 - INFO - Lote processado: 639 chunks inseridos
+2025-12-11 12:50:28,435 - INFO - 
+================================================================================
+2025-12-11 12:50:28,436 - INFO - MEGA-BATCH 2: 555 documentos
+2025-12-11 12:50:28,436 - INFO - ================================================================================
+
+2025-12-11 12:50:28,437 - INFO - Processando 555 documentos...
+2025-12-11 12:50:29,587 - WARNING - Documento 54018 muito curto após limpeza
+2025-12-11 12:50:29,616 - WARNING - Documento 54139 muito curto após limpeza
+2025-12-11 12:50:29,686 - WARNING - Documento 54188 muito curto após limpeza
+2025-12-11 12:50:29,828 - WARNING - Documento 54245 muito curto após limpeza
+2025-12-11 12:50:29,963 - WARNING - Documento 54333 muito curto após limpeza
+2025-12-11 12:50:29,969 - WARNING - Documento 54335 muito curto após limpeza
+2025-12-11 12:50:29,998 - WARNING - Documento 54352 muito curto após limpeza
+2025-12-11 12:50:30,026 - WARNING - Documento 54370 muito curto após limpeza
+2025-12-11 12:50:30,047 - INFO - Total de chunks gerados: 660
+2025-12-11 12:50:30,047 - INFO - Gerando embeddings...
+2025-12-11 13:00:18,205 - INFO - Inserindo no banco de dados...
+2025-12-11 13:00:19,875 - INFO - Lote processado: 160 chunks inseridos
+2025-12-11 13:00:19,876 - INFO - 
+================================================================================
+2025-12-11 13:00:19,876 - INFO - PIPELINE CONCLUÍDO
+2025-12-11 13:00:19,877 - INFO - Total de chunks processados e inseridos: 799
+2025-12-11 13:00:19,877 - INFO - Total de documentos processados: 2543
+2025-12-11 13:00:19,877 - INFO - ================================================================================
+2025-12-11 14:46:31,474 - INFO - Carregando modelo BAAI/bge-m3 em cpu...
+2025-12-11 14:46:36,495 - INFO - Modelo carregado com sucesso
+2025-12-11 14:46:36,495 - INFO - ================================================================================
+2025-12-11 14:46:36,496 - INFO - INICIANDO PIPELINE DE PROCESSAMENTO
+2025-12-11 14:46:36,496 - INFO - ================================================================================
+2025-12-11 14:46:36,669 - INFO - Tabela destino inicializada
+2025-12-11 14:46:36,670 - INFO - Conectando ao banco fonte...
+2025-12-11 14:46:36,691 - INFO - Executando consulta...
+2025-12-11 14:46:37,633 - INFO - Total de documentos recuperados: 2555
+2025-12-11 14:46:37,640 - INFO - Documentos já processados (pulados): 0
+2025-12-11 14:46:37,640 - INFO - Documentos a processar: 2555
+2025-12-11 14:46:37,641 - INFO - 
+================================================================================
+2025-12-11 14:46:37,641 - INFO - MEGA-BATCH 1: 500 documentos
+2025-12-11 14:46:37,641 - INFO - ================================================================================
+
+2025-12-11 14:46:37,641 - INFO - Processando 500 documentos...
+2025-12-11 14:46:38,873 - WARNING - Documento 902 muito curto após limpeza
+2025-12-11 14:46:39,556 - INFO - Total de chunks gerados: 1622
+2025-12-11 14:46:39,556 - INFO - Gerando embeddings...
+2025-12-11 15:17:07,093 - INFO - Inserindo no banco de dados...
+2025-12-11 15:17:11,372 - INFO - Lote processado: 522 chunks inseridos
+2025-12-11 15:17:11,385 - INFO - 
+================================================================================
+2025-12-11 15:17:11,385 - INFO - MEGA-BATCH 2: 500 documentos
+2025-12-11 15:17:11,385 - INFO - ================================================================================
+
+2025-12-11 15:17:11,385 - INFO - Processando 500 documentos...
+2025-12-11 15:17:12,681 - WARNING - Documento 2971 muito curto após limpeza
+2025-12-11 15:17:12,691 - WARNING - Documento 2986 muito curto após limpeza
+2025-12-11 15:17:13,276 - WARNING - Documento 3539 muito curto após limpeza
+2025-12-11 15:17:13,517 - INFO - Total de chunks gerados: 1882
+2025-12-11 15:17:13,517 - INFO - Gerando embeddings...
+2025-12-11 15:45:40,125 - INFO - Inserindo no banco de dados...
+2025-12-11 15:45:44,852 - INFO - Lote processado: 682 chunks inseridos
+2025-12-11 15:45:44,858 - INFO - 
+================================================================================
+2025-12-11 15:45:44,858 - INFO - MEGA-BATCH 3: 500 documentos
+2025-12-11 15:45:44,858 - INFO - ================================================================================
+
+2025-12-11 15:45:44,858 - INFO - Processando 500 documentos...
+2025-12-11 15:45:46,653 - INFO - Total de chunks gerados: 740
+2025-12-11 15:45:46,655 - INFO - Gerando embeddings...
+2025-12-11 15:56:39,209 - INFO - Inserindo no banco de dados...
+2025-12-11 15:56:41,167 - INFO - Lote processado: 240 chunks inseridos
+2025-12-11 15:56:41,168 - INFO - 
+================================================================================
+2025-12-11 15:56:41,168 - INFO - MEGA-BATCH 4: 500 documentos
+2025-12-11 15:56:41,168 - INFO - ================================================================================
+
+2025-12-11 15:56:41,168 - INFO - Processando 500 documentos...
+2025-12-11 15:56:43,167 - INFO - Total de chunks gerados: 1064
+2025-12-11 15:56:43,167 - INFO - Gerando embeddings...
+2025-12-11 16:12:23,958 - INFO - Inserindo no banco de dados...
+2025-12-11 16:12:26,649 - INFO - Lote processado: 364 chunks inseridos
+2025-12-11 16:12:26,650 - INFO - 
+================================================================================
+2025-12-11 16:12:26,651 - INFO - MEGA-BATCH 5: 500 documentos
+2025-12-11 16:12:26,651 - INFO - ================================================================================
+
+2025-12-11 16:12:26,651 - INFO - Processando 500 documentos...
+2025-12-11 16:12:27,177 - WARNING - Documento 54018 muito curto após limpeza
+2025-12-11 16:12:27,309 - WARNING - Documento 54139 muito curto após limpeza
+2025-12-11 16:12:27,370 - WARNING - Documento 54188 muito curto após limpeza
+2025-12-11 16:12:27,471 - WARNING - Documento 54245 muito curto após limpeza
+2025-12-11 16:12:27,573 - INFO - Total de chunks gerados: 855
+2025-12-11 16:12:27,574 - INFO - Gerando embeddings...
+2025-12-11 16:24:43,196 - INFO - Inserindo no banco de dados...
+2025-12-11 16:24:45,467 - INFO - Lote processado: 255 chunks inseridos
+2025-12-11 16:24:45,469 - INFO - 
+================================================================================
+2025-12-11 16:24:45,469 - INFO - MEGA-BATCH 6: 55 documentos
+2025-12-11 16:24:45,469 - INFO - ================================================================================
+
+2025-12-11 16:24:45,469 - INFO - Processando 55 documentos...
+2025-12-11 16:24:45,501 - WARNING - Documento 54333 muito curto após limpeza
+2025-12-11 16:24:45,503 - WARNING - Documento 54335 muito curto após limpeza
+2025-12-11 16:24:45,526 - WARNING - Documento 54352 muito curto após limpeza
+2025-12-11 16:24:45,550 - WARNING - Documento 54370 muito curto após limpeza
+2025-12-11 16:24:45,568 - INFO - Total de chunks gerados: 82
+2025-12-11 16:24:45,569 - INFO - Gerando embeddings...
+2025-12-11 16:25:58,639 - INFO - Inserindo no banco de dados...
+2025-12-11 16:25:58,985 - INFO - Lote processado: 82 chunks inseridos
+2025-12-11 16:25:58,986 - INFO - 
+================================================================================
+2025-12-11 16:25:58,986 - INFO - PIPELINE CONCLUÍDO
+2025-12-11 16:25:58,986 - INFO - Total de chunks processados e inseridos: 2145
+2025-12-11 16:25:58,986 - INFO - Total de documentos processados: 2543
+2025-12-11 16:25:58,986 - INFO - ================================================================================
