@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   pgvector_db:
     image: pgvector/pgvector:pg15
@@ -8,7 +10,9 @@ services:
       POSTGRES_DB: normativos
     ports:
       - "5433:5432"
-    # Volume comentado para sempre subir do zero
-    # Se você quiser persistir, descomente a linha abaixo
-    # volumes:
-    #   - pgvector_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    name: app-network

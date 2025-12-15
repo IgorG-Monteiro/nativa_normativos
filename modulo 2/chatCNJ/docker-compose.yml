@@ -8,19 +8,17 @@ services:
       - "8001:8001"
     restart: unless-stopped
     environment:
-      - DB_HOST=host.docker.internal
-      - DB_PORT=5433
+      - DB_HOST=pgvector_db
+      - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=normativos
       - DB_SCHEMA=public
       - DB_TABLE=normativos_cnj_bgem3
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     networks:
       - app-network
 
 networks:
   app-network:
-    name: app-network
     external: true
+    name: app-network
