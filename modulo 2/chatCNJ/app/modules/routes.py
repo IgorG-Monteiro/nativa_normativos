@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 # DEV
-N8N_WEBHOOK_URL = "http://n8n_server:5678/webhook/66606d14-c81d-4523-ac00-8238854e560c"
+N8N_WEBHOOK_URL = "http://n8n_server:5678/webhook-test/66606d14-c81d-4523-ac00-8238854e560c"
 # PROD
 # N8N_WEBHOOK_URL = "http://157.173.125.173:5678/webhook/1498ff44-3cc2-4ef9-bfab-ea8416eeb00b"
 
