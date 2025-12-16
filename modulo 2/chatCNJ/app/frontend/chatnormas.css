@@ -31,6 +31,62 @@ body {
     width: 100%;
 }
 
+    .tjap-header {
+        background-color: #00994C;
+        padding: 15px 0;
+        border-bottom: 1px solid #e0e0e0;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Garantir largura total */
+        flex-shrink: 0; /* Impedir que o flex do pai esmague o header */
+    }
+
+    .tjap-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .social-buttons,
+    .ui-social {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .social-buttons a,
+    .ui-social a {
+        color: #e0e0e0;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+        font-size: 18px;
+    }
+
+    .social-buttons a:hover,
+    .ui-social a:hover {
+        color: #002580; 
+    }
+
+    .ui-social a {
+        font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+        .top-row {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    
 /* --- Navbar --- */
 .navbar {
     width: 280px;

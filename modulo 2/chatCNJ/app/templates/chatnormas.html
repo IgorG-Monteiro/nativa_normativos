@@ -1,82 +1,114 @@
 {% block styles %}
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 <link rel="stylesheet" href="{{ url_for('static', path='chatnormas.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 {% block content %}
-<div class="container">
-    <!-- Navbar lateral esquerda -->
-    <nav class="navbar">
-        <div class="header-logo">
-            <h2 class="palanq">Chat</h2><h2 class="ia" id="header-title">CNJ</h2>
+<div style="display: flex; flex-direction: column; height: 100vh;">
+    <header class="tjap-header">
+        <div class="tjap-container"> <div class="top-row">
+                <div class="social-buttons">
+                    <a title="Facebook" href="https://www.facebook.com/pages/tjap/215744231796241" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                    <a title="X Twitter" href="https://x.com/tjap_oficial" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a title="YouTube" href="https://www.youtube.com/user/TJAPNoticias" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+                    <a title="Instagram" href="https://instagram.com/tjap.oficial" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                    <a title="Flickr" href="https://www.flickr.com/photos/tribunaldejusticadoamapa/" target="_blank" rel="noopener"><i class="fab fa-flickr"></i></a>
+                    <a title="Galeria" href="https://old.tjap.jus.br/portal/publicacoes/galeria.html" target="_blank" rel="noopener"><i class="fa-regular fa-images"></i></a>
+                    <a title="JudiciRádio" href="https://www.judiciradio.com.br/" target="_blank" rel="noopener"><i class="fa-solid fa-microphone-lines"></i></a>
+                    <a title="Acessibilidade" href="https://www.tjap.jus.br/portal/acessibilidade" target="_blank" rel="noopener"><i class="fa-solid fa-universal-access"></i></a>
+                    <a title="Radar da Transparência Pública" href="https://radar.tce.mt.gov.br/extensions/radar-da-transparencia-publica/radar-da-transparencia-publica.html" target="_blank" rel="noopener"><i class="fa-solid fa-magnifying-glass-chart"></i></a>
+                </div>
+
+                <div class="ui-social">
+                    <a href="https://datacor.tjap.jus.br/" title="DATACOR" target="_blank">DATA<span style="color:#012580;font-weight:500">COR</span></a>
+                    <a href="https://www.tjap.jus.br/portal/pje-inicio.html" title="Processo Judicial Eletrônico">PJ<span style="color:orange;">e</span></a>
+                    <a href="https://seeu.pje.jus.br/seeu/" title="Sistema Eletrônico de Execução Unificado" target="_blank">seeu</a>
+                    <a href="https://tucujuris.tjap.jus.br/" title="Tucujuris" target="_blank"><i class="fa-solid fa-feather"></i></a>
+                    <a href="https://sig.tjap.jus.br/autentica_md" title="PJeDoc" target="_blank"><i class="fa-solid fa-file-lines"></i></a>
+                    <a href="https://services.tjap.jus.br/dje/consulta" title="Diário da Justiça Eletrônico" target="_blank"><i class="fa-solid fa-book"></i></a>
+                    <a href="https://sig.tjap.jus.br/ato_normativo_grid_ato_normativo/ato_normativo_grid_ato_normativo.php" title="Atos Normativos" target="_blank"><i class="fa-solid fa-file"></i></a>
+                    <a href="https://sig.tjap.jus.br/autentica_sos_V2/autentica_sos_V2.php" title="Chamados" target="_blank"><i class="fa-solid fa-life-ring"></i></a>
+                    <a href="https://old.tjap.jus.br/gestao_jud" title="Gestão Processual" target="_blank"><i class="fa-solid fa-scale-balanced"></i></a>
+                    <a href="https://old.tjap.jus.br/gestao_adm" title="Gestão Administrativa" target="_blank"><i class="fa-solid fa-briefcase"></i></a>
+                </div>
+            </div>
         </div>
-        <div class="divisor"></div>
-        
-        <!-- Switch para alternar entre CNJ e TJAP -->
-        <div class="db-switch-container">
-            <label class="switch-label">
-                <span class="switch-text">CNJ</span>
-                <label class="switch">
-                    <input type="checkbox" id="db-switch">
-                    <span class="slider"></span>
+    </header>
+
+    <div class="container" style="height: auto; flex: 1; overflow: hidden;">
+        <nav class="navbar">
+            <div class="header-logo">
+                <h2 class="palanq">Chat</h2><h2 class="ia" id="header-title">CNJ</h2>
+            </div>
+            <div class="divisor"></div>
+            
+            <!-- Switch para alternar entre CNJ e TJAP -->
+            <div class="db-switch-container">
+                <label class="switch-label">
+                    <span class="switch-text">CNJ</span>
+                    <label class="switch">
+                        <input type="checkbox" id="db-switch">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="switch-text">TJAP</span>
                 </label>
-                <span class="switch-text">TJAP</span>
-            </label>
-        </div>
-        
-        <div class="divisor"></div>
-        
-        <div class="new-chat">
-            <button id="new-chat-button" class="addbtn" aria-label="Novo Chat">
-                <i class="uil uil-plus-circle"></i> Novo Chat
-            </button>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">
-                <i class="uil uil-lightbulb-alt"></i> Exemplos de Perguntas
-            </button>
-            <div id="example-prompts" class="dropdown-content">
-                <!-- Usando data-prompt para um JS mais limpo -->
-                <a href="#" data-prompt="Adoção infantil.">Adoção infantil.</a>
-                <a href="#" data-prompt="Produtividade jurisdicional">Produtividade jurisdicional.</a>
-                <a href="#" data-prompt="Prêmio de Qualidade CNJ.">Prêmio de Qualidade CNJ.</a>
             </div>
-        </div>
-        <div class="infos">
-            <hr>
-            <p id="info-text">
-                Converse com um agente de IA treinado em atos normativos das bases internas do TJAP e também do CNJ.
-                Atualmente, o catálogo possui mais de 2500 atos internos do TJAP e mais de 5800 atos normativos do CNJ.
-            </p>
-        </div>
-    </nav>
-    <!-- Área do chat principal -->
-    <main class="chat-section">
-        <!-- O container principal de mensagens com acessibilidade -->
-        <div id="chat-container" class="chat-box" aria-live="polite">
-            <!-- Mensagem de boas-vindas renderizada no servidor -->
-            <div class="message bot-message">
-                <div class="avatar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 0 0-3.95-7.95l-1.05-1.05A10 10 0 0 1 12 2Z"></path><path d="M12 22a10 10 0 0 1 3.95-7.95l1.05-1.05A10 10 0 0 0 12 2Z"></path><path d="m9 14 3-3 3 3"></path><path d="M9 14v1"></path><path d="M15 14v1"></path><path d="M12 11v6"></path></svg>
-                </div>
-                <div class="message-content">
-                    <p>Olá! Sou seu assistente virtual especializado em propostas de governo. Como posso ajudar você hoje?</p>
-                </div>
-            </div>
-        </div>
-        <!-- Indicador de Digitação (fora do scroll) -->
-        <div id="typing-indicator" class="typing-indicator-container">
-             <!-- O indicador será movido para cá via JS -->
-        </div>
-        <!-- Área de Input -->
-        <div class="chat-input-area">
-            <div class="chat-input-wrapper">
-                <input type="text" id="message-input" placeholder="Pergunte sobre normas e regulamentos..." autocomplete="off">
-                <button id="send-button" aria-label="Enviar mensagem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+            
+            <div class="divisor"></div>
+            
+            <div class="new-chat">
+                <button id="new-chat-button" class="addbtn" aria-label="Novo Chat">
+                    <i class="uil uil-plus-circle"></i> Novo Chat
                 </button>
             </div>
-        </div>
-    </main>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <i class="uil uil-lightbulb-alt"></i> Exemplos de Perguntas
+                </button>
+                <div id="example-prompts" class="dropdown-content">
+                    <!-- Usando data-prompt para um JS mais limpo -->
+                    <a href="#" data-prompt="Adoção infantil.">Adoção infantil.</a>
+                    <a href="#" data-prompt="Produtividade jurisdicional">Produtividade jurisdicional.</a>
+                    <a href="#" data-prompt="Prêmio de Qualidade CNJ.">Prêmio de Qualidade CNJ.</a>
+                </div>
+            </div>
+            <div class="infos">
+                <hr>
+                <p id="info-text">
+                    Converse com um agente de IA treinado em atos normativos das bases internas do TJAP e também do CNJ.
+                    Atualmente, o catálogo possui mais de 2500 atos internos do TJAP e mais de 5800 atos normativos do CNJ.
+                </p>
+            </div>
+        </nav>
+        <!-- Área do chat principal -->
+        <main class="chat-section">
+            <!-- O container principal de mensagens com acessibilidade -->
+            <div id="chat-container" class="chat-box" aria-live="polite">
+                <!-- Mensagem de boas-vindas renderizada no servidor -->
+                <div class="message bot-message">
+                    <div class="avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 0 0-3.95-7.95l-1.05-1.05A10 10 0 0 1 12 2Z"></path><path d="M12 22a10 10 0 0 1 3.95-7.95l1.05-1.05A10 10 0 0 0 12 2Z"></path><path d="m9 14 3-3 3 3"></path><path d="M9 14v1"></path><path d="M15 14v1"></path><path d="M12 11v6"></path></svg>
+                    </div>
+                    <div class="message-content">
+                        <p>Olá! Sou seu assistente virtual especializado em propostas de governo. Como posso ajudar você hoje?</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Indicador de Digitação (fora do scroll) -->
+            <div id="typing-indicator" class="typing-indicator-container">
+                <!-- O indicador será movido para cá via JS -->
+            </div>
+            <!-- Área de Input -->
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <input type="text" id="message-input" placeholder="Pergunte sobre normas e regulamentos..." autocomplete="off">
+                    <button id="send-button" aria-label="Enviar mensagem">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
 </div>
 {% endblock %}
 {% block scripts %}
