@@ -20,11 +20,11 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.n8n.rule=Host(`${HOST_URL}`) && PathPrefix(`/${APP_NAME}`)"
-      - "traefik.http.routers.n8n.entrypoints=https" # <--- CORRIGIDO
-      - "traefik.http.routers.n8n.tls=true"
-      - "traefik.http.routers.n8n.service=n8n-service"
-      - "traefik.http.services.n8n-service.loadbalancer.server.port=8001"
+      - "traefik.http.routers.normativos.rule=Host(`${HOST_URL}`) && PathPrefix(`/${APP_NAME}`)"
+      - "traefik.http.routers.normativos.entrypoints=https" # <--- CORRIGIDO
+      - "traefik.http.routers.normativos.tls=true"
+      - "traefik.http.routers.normativos.service=normativos-service"
+      - "traefik.http.services.normativos-service.loadbalancer.server.port=8001"
 
 networks:
   app-network:
