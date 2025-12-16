@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         // Endereço da API
-        API_URL: '/chatnormas/legislacao',
+        API_URL: '/normativos/chatnormas/legislacao',
 
         // Configurações de tema
         themes: {
