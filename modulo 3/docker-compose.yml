@@ -4,19 +4,39 @@ services:
   n8n:
     image: n8nio/n8n:latest
     container_name: n8n_server
+    user: "1000:1000"
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=localhost
+      - N8N_HOST=${HOST_URL}
+      - N8N_PATH=/${APP_NAME}/
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - N8N_BASIC_AUTH_ACTIVE=false
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
     volumes:
       - ./n8n_data:/home/node/.n8n
     networks:
       - app-network
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n.rule=Host(`${HOST_URL}`) && PathPrefix(`/${APP_NAME}`)"
+      - "traefik.http.routers.n8n.entrypoints=https" # <--- CORRIGIDO
+      - "traefik.http.routers.n8n.tls=true"
+      - "traefik.http.routers.n8n.service=n8n-service"
+      - "traefik.http.services.n8n-service.loadbalancer.server.port=5678"
+      # # Apply the middleware to the router
+      # # Define the StripPrefix middleware
+      # - "traefik.http.middlewares.n8n-stripprefix.stripprefix.prefixes=/${APP_NAME}"
+      - "traefik.http.middlewares.n8n-stripprefix.stripprefix.prefixes=/${APP_NAME}/"
+      - "traefik.http.routers.n8n.middlewares=n8n-stripprefix"
+      # - "traefik.http.middlewares.n8n-addn8n.addprefix.prefix=/n8n"
 
 networks:
   app-network:
     external: true
     name: app-network
+  traefik:
+    external: true
+    name: traefik
