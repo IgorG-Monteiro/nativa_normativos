@@ -25,9 +25,10 @@ app.add_middleware(
 )
 
 # Monta o diretório de arquivos estáticos (CSS, JS, Imagens)
-app.mount("/static", StaticFiles(directory="app/frontend"), name="static")
-
 BASE_DIR = Path(__file__).resolve().parent
+
+app.mount("/static", StaticFiles(directory=str(BASE_DIR / "app/frontend")), name="static")
+
 templates = Jinja2Templates(directory=str(BASE_DIR / "app/templates"))
 
 # --- Inclusão das Rotas das APIs ---
