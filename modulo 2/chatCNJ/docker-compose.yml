@@ -24,7 +24,7 @@ services:
       - "traefik.http.routers.normativos.entrypoints=https" # <--- CORRIGIDO
       - "traefik.http.routers.normativos.tls=true"
       - "traefik.http.routers.normativos.service=normativos-service"
-      - "traefik.http.services.normativos-service.loadbalancer.server.port=8001"
+      - "traefik.http.services.normativos-service.loadbalancer.server.port=8002"
 
 networks:
   app-network:
