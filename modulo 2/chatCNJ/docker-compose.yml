@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   fastapi_app:
@@ -17,8 +17,19 @@ services:
       - DB_TABLE=normativos_cnj_bgem3
     networks:
       - app-network
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n.rule=Host(`${HOST_URL}`) && PathPrefix(`/${APP_NAME}`)"
+      - "traefik.http.routers.n8n.entrypoints=https" # <--- CORRIGIDO
+      - "traefik.http.routers.n8n.tls=true"
+      - "traefik.http.routers.n8n.service=n8n-service"
+      - "traefik.http.services.n8n-service.loadbalancer.server.port=8001"
 
 networks:
   app-network:
     external: true
     name: app-network
+  traefik:
+    external: true
+    name: traefik

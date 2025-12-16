@@ -11,7 +11,8 @@ from app.modules.routes import router as chatnormas_router
 # Cria a aplicação principal
 app = FastAPI(
     title="Programa de Mestrado em Modelagem computacional e transformação digital",
-    description="Projeto construído em programa de Mestrado de Modelagem Computacional"
+    description="Projeto construído em programa de Mestrado de Modelagem Computacional",
+    root_path="/normativos"
 )
 
 # Middleware CORS
